@@ -1,22 +1,34 @@
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
+import './App.css';
 
 
 function App() {
-  useEffect(() => {
+
+  const [questions, setQuestion] = useState([])
+
+  
     function getTrivia() {
       fetch('https://opentdb.com/api.php?amount=10')
       .then(res => res.json())
       .then(data => console.log(data.results))
     }
-    getTrivia()
-  }, [])
+
 
 
 
   return (
     <div className="App">
-     <h1>Hello world</h1>
+     {
+      questions.length === 0
+      ? <div className="start-quiz">
+        <h1>Quizmasters</h1>
+        <button
+          className="start-btn"
+          onClick={getTrivia}
+        >Start Quiz</button>
+      </div>
+      : <h2>Hello world</h2>
+      }
     </div>
   );
 }
