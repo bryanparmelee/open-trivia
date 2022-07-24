@@ -1,19 +1,36 @@
 import { useEffect, useState } from "react";
 import './App.css';
+import Question from "./Components/Question";
 
 
 function App() {
 
-  const [questions, setQuestion] = useState([])
+  const [questions, setQuestions] = useState([])
 
   
     function getTrivia() {
       fetch('https://opentdb.com/api.php?amount=10')
       .then(res => res.json())
-      .then(data => console.log(data.results))
+    
+      .then(data => {
+        console.log(data.results)
+        setQuestions(data.results)})
+      console.log(questions)
     }
 
+    const quiz = questions.map(item => {
+      return (
+        <Question 
+          key={item.id}
+          id={item.id}
+          type={item.type}
+          question={item.question}
+          answer={item.correct_answer}
+          incorrect={item.incorrect_answers}
 
+        />
+      )
+    })
 
 
   return (
@@ -27,7 +44,9 @@ function App() {
           onClick={getTrivia}
         >Start Quiz</button>
       </div>
-      : <h2>Hello world</h2>
+      : <div className="quiz">
+    {quiz}
+      </div>
       }
     </div>
   );

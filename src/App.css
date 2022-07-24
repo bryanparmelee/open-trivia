@@ -19,7 +19,7 @@ body {
     align-items: center;
 }
 
-.start-quiz {
+.start-quiz, .quiz {
     width: 550px;
     height: 550px;
     display: flex;
@@ -36,3 +36,4 @@ body {
     color: white;
     font-family: 'Noto Sans', sans-serif;
 }
+
