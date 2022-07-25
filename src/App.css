@@ -26,14 +26,43 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #b2b9dd;
 }
 
 .start-btn {
     width: 200px;
     height: 50px;
-    border: 15px;
+    border-radius: 15px;
     background-color: #4D5B9E;
     color: white;
     font-family: 'Noto Sans', sans-serif;
 }
 
+.question-container {
+    margin: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.question {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.answers {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.quiz-btn {
+    width: 66px;
+    height: 20px;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 10px;
+    cursor: pointer;
+
+}

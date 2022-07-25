@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import './App.css';
 import Question from "./Components/Question";
+import { nanoid } from "nanoid"
 
 
 function App() {
@@ -8,16 +9,19 @@ function App() {
   const [questions, setQuestions] = useState([])
 
   
-    function getTrivia() {
+  function getTrivia() {
       fetch('https://opentdb.com/api.php?amount=10')
-      .then(res => res.json())
-    
+      .then(res => res.json())    
       .then(data => {
-        console.log(data.results)
-        setQuestions(data.results)})
-      console.log(questions)
-    }
-
+        let results = [...data.results].map(item => ({
+          ...item,
+          id: nanoid()
+        }))
+        
+        setQuestions(results)
+  
+    })
+  }
     const quiz = questions.map(item => {
       return (
         <Question 
@@ -30,6 +34,7 @@ function App() {
 
         />
       )
+   
     })
 
 
@@ -37,19 +42,21 @@ function App() {
     <div className="App">
      {
       questions.length === 0
-      ? <div className="start-quiz">
+      ? 
+      <div className="start-quiz">
         <h1>Quizmasters</h1>
         <button
           className="start-btn"
           onClick={getTrivia}
         >Start Quiz</button>
       </div>
-      : <div className="quiz">
-    {quiz}
+      :
+       <div className="quiz">
+        {quiz}
       </div>
       }
     </div>
   );
-}
 
+}
 export default App;

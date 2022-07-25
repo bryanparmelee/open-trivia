@@ -1,41 +1,55 @@
 import React from "react";
 
-export default function Question(props) {
-    let choices = [props.answer, ...props.incorrect].sort();
-    
 
-    const trueOrFalse = (
-        <div className="answers">
-        <button 
-            className="quiz-btn"
-            value={true}
-            >
-            True
-            </button>
-        <button
-            className="quiz-btn"
-            value={false}
-        >
-            False
-        </button>
-        </div>
-    )
+export default function Question(props) {
+    let choices = []
+    props.type === "boolean" ? 
+    choices = [props.answer, ...props.incorrect].sort().reverse() :
+    choices = [props.answer, ...props.incorrect].sort() 
+    
+    function clickHandler(value) {
+        value === props.answer ? console.log('Correct!') :
+        console.log("Wrong!")
+    }
+
+    // const trueOrFalse = (
+    //     <>
+    //     <button 
+    //         className="quiz-btn"
+    //         value={true}
+    //         >
+    //         True
+    //     </button>
+    //     <button
+    //         className="quiz-btn"
+    //         value={false}
+    //     >
+    //         False
+    //     </button>
+    //     </>
+    // )
 
     const multipleChoice = choices.map(item => {
-        return ( <div className="answers">
+        return ( 
+     
             <button
                 className="quiz-btn"
-                >
+                value={item}
+                onClick={() => clickHandler(item)}
+            >
                 {item}
             </button>
 
-        </div>)
+       
+        )
     }) 
 
     return (
-        <div className="question">
-        <h3>{props.question}</h3>
-        {props.type === "boolean" ? trueOrFalse : multipleChoice}
+        <div className="question-container">
+            <h3 className="question">{props.question}</h3>
+            <div className="answers">
+            {multipleChoice}
+            </div>
         </div>
     )
 }
