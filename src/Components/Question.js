@@ -34,7 +34,8 @@ export default function Question(props) {
      
             <button
                 className="quiz-btn"
-                value={item}
+                key={item}
+                value={item}             
                 onClick={() => clickHandler(item)}
             >
                 {item}
@@ -45,7 +46,9 @@ export default function Question(props) {
     }) 
 
     return (
-        <div className="question-container">
+        <div 
+            className="question-container"
+            key={props.id}>
             <h3 className="question">{editedQuestion}</h3>
             <div className="answers">
             {multipleChoice}
