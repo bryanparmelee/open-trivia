@@ -11,14 +11,17 @@ export default function Question(props) {
         const entity = {
             '&#039;': "'",
             '&quot;': '"',
-            '&amp;' : '&'
+            '&amp;': '&',
+            '&atilde;': 'ã',
+            '&ouml;': 'ö'
         }
-        return str.replace(/&#039;|&quot;|&amp;/g, item => entity[item]);
+        return str.replace(/&#039;|&quot;|&amp;|&atilde;|&ouml;/g, item => entity[item]);
    
     }
    
 
     let editedQuestion = fixHTML(props.question)
+    let editedChoices = choices.map(item => fixHTML(item))
     
     function clickHandler(value) {
         value === props.answer ? console.log('Correct!') :
@@ -26,7 +29,7 @@ export default function Question(props) {
     }
 
 
-    const multipleChoice = choices.map(item => {
+    const multipleChoice = editedChoices.map(item => {
         return ( 
      
             <button
@@ -47,7 +50,7 @@ export default function Question(props) {
             <div className="answers">
             {multipleChoice}
             </div>
-            <hr></hr>
+            <div className="divider"></div>
   
         </div>
     )

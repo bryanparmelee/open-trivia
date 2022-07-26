@@ -39,7 +39,10 @@ body {
 }
 
 .question-container {
-    margin: 20px 20px;
+    margin: 20px 10px;
+    width: 80%;
+    
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -62,9 +65,9 @@ body {
 }
 
 .quiz-btn {
-    min-width: 80px;
+    width: 80px;
     padding: 0 10px;
-    height: 20px;
+    min-height: 20px;
     font-family: 'Noto Sans', sans-serif;
     font-size: 10px;
     cursor: pointer;
@@ -72,6 +75,10 @@ body {
     border-radius: 15px;
     border: none;
 
+}
+
+.divider {
+    border-bottom: 1px solid black ;
 }
 
 .check-btn {

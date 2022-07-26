@@ -15,7 +15,9 @@ function App() {
       .then(data => {
         let results = [...data.results].map(item => ({
           ...item,
-          id: nanoid()
+          id: nanoid(),
+          selected: false,
+          correct: false
         }))
         
         setQuestions(results)
@@ -31,6 +33,8 @@ function App() {
           question={item.question}
           answer={item.correct_answer}
           incorrect={item.incorrect_answers}
+          selected={item.selected}
+          correct={item.correct}
 
         />
       )
