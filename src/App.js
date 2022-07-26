@@ -10,7 +10,7 @@ function App() {
 
   
   function getTrivia() {
-      fetch('https://opentdb.com/api.php?amount=10')
+      fetch('https://opentdb.com/api.php?amount=5')
       .then(res => res.json())    
       .then(data => {
         let results = [...data.results].map(item => ({

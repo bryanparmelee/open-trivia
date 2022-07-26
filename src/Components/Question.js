@@ -6,28 +6,19 @@ export default function Question(props) {
     props.type === "boolean" ? 
     choices = [props.answer, ...props.incorrect].sort().reverse() :
     choices = [props.answer, ...props.incorrect].sort() 
+
+    // const entities = {
+    //     '&#039;': "'",
+    //     '&quot;': '"'
+    // }
+
+    let editedQuestion = props.question.replace('&quot;', '"')
     
     function clickHandler(value) {
         value === props.answer ? console.log('Correct!') :
         console.log("Wrong!")
     }
 
-    // const trueOrFalse = (
-    //     <>
-    //     <button 
-    //         className="quiz-btn"
-    //         value={true}
-    //         >
-    //         True
-    //     </button>
-    //     <button
-    //         className="quiz-btn"
-    //         value={false}
-    //     >
-    //         False
-    //     </button>
-    //     </>
-    // )
 
     const multipleChoice = choices.map(item => {
         return ( 
@@ -46,7 +37,7 @@ export default function Question(props) {
 
     return (
         <div className="question-container">
-            <h3 className="question">{props.question}</h3>
+            <h3 className="question">{editedQuestion}</h3>
             <div className="answers">
             {multipleChoice}
             </div>
