@@ -53,7 +53,11 @@ function App() {
       :
        <div className="quiz">
         {quiz}
+        <button
+                className="check-btn"
+                >Check Answers</button>
       </div>
+
       }
     </div>
   );

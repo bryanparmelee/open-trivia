@@ -43,12 +43,14 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 .question {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .answers {
@@ -70,4 +72,13 @@ body {
     border-radius: 15px;
     border: none;
 
+}
+
+.check-btn {
+    width: 120px;
+    height: 35px;
+    border-radius: 15px;
+    background-color: #4D5B9E;
+    color: white;
+    font-family: 'Noto Sans', sans-serif;
 }

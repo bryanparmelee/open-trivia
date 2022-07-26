@@ -7,12 +7,18 @@ export default function Question(props) {
     choices = [props.answer, ...props.incorrect].sort().reverse() :
     choices = [props.answer, ...props.incorrect].sort() 
 
-    // const entities = {
-    //     '&#039;': "'",
-    //     '&quot;': '"'
-    // }
+    function fixHTML(str) {
+        const entity = {
+            '&#039;': "'",
+            '&quot;': '"',
+            '&amp;' : '&'
+        }
+        return str.replace(/&#039;|&quot;|&amp;/g, item => entity[item]);
+   
+    }
+   
 
-    let editedQuestion = props.question.replace('&quot;', '"')
+    let editedQuestion = fixHTML(props.question)
     
     function clickHandler(value) {
         value === props.answer ? console.log('Correct!') :
@@ -41,6 +47,8 @@ export default function Question(props) {
             <div className="answers">
             {multipleChoice}
             </div>
+            <hr></hr>
+  
         </div>
     )
 }
