@@ -15,15 +15,16 @@ function App() {
       .then(data => {
         let results = [...data.results].map(item => ({
           ...item,
-          id: nanoid(),
-          selected: false,
-          correct: false
+          id: nanoid()         
         }))
         
         setQuestions(results)
+   
   
     })
   }
+
+
     const quiz = questions.map(item => {
       return (
         <Question 
@@ -33,8 +34,7 @@ function App() {
           question={item.question}
           answer={item.correct_answer}
           incorrect={item.incorrect_answers}
-          selected={item.selected}
-          correct={item.correct}
+       
 
         />
       )
@@ -58,8 +58,8 @@ function App() {
        <div className="quiz">
         {quiz}
         <button
-                className="check-btn"
-                >Check Answers</button>
+            className="check-btn"
+        >Submit Answers</button>
       </div>
 
       }

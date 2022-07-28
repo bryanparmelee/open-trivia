@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 
 
 export default function Question(props) {
-    let choices = []
+    const [selected, setSelected] = useState("")
+    let temp = []
     props.type === "boolean" ? 
-    choices = [props.answer, ...props.incorrect].sort().reverse() :
-    choices = [props.answer, ...props.incorrect].sort() 
+    
+    temp = [props.answer, ...props.incorrect].sort().reverse() :
+    temp =[props.answer, ...props.incorrect].sort()
+
+    //Move this to the App module //  
 
     function fixHTML(str) {
         const entity = {
@@ -18,14 +22,19 @@ export default function Question(props) {
         return str.replace(/&#039;|&quot;|&amp;|&atilde;|&ouml;/g, item => entity[item]);
    
     }
+    
    
+    
 
     let editedQuestion = fixHTML(props.question)
-    let editedChoices = choices.map(item => fixHTML(item))
+    let editedChoices = temp.map(item => fixHTML(item))
+
+    const noBorder = {border: 'none'}
+    const selectedBorder = {border: '1px solid black'}
+
     
-    function clickHandler(value) {
-        value === props.answer ? console.log('Correct!') :
-        console.log("Wrong!")
+    function selectHandler(value) {
+        setSelected(value)
     }
 
 
@@ -34,9 +43,11 @@ export default function Question(props) {
      
             <button
                 className="quiz-btn"
+                style={selected === item ? selectedBorder : noBorder}
                 key={item}
-                value={item}             
-                onClick={() => clickHandler(item)}
+                value={item}
+                       
+                onClick={() => selectHandler(item)}
             >
                 {item}
             </button>
