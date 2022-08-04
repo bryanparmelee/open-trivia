@@ -15,7 +15,9 @@ function App() {
       .then(data => {
         let results = [...data.results].map(item => ({
           ...item,
-          id: nanoid()         
+          options: [item.correct_answer, ...item.incorrect_answers],
+          id: nanoid(),
+          selected: ''         
         }))
         
         setQuestions(results)
@@ -24,7 +26,13 @@ function App() {
     })
   }
 
+  function selectHandler(value) {
+    setQuestions(prev => prev.map(item => {
+      return item.options.includes(value) ? {...item, selected: value} : item
+    })) 
+  }
 
+  
     const quiz = questions.map(item => {
       return (
         <Question 
@@ -34,7 +42,9 @@ function App() {
           question={item.question}
           answer={item.correct_answer}
           incorrect={item.incorrect_answers}
-       
+          options={item.options}
+          selected={item.selected}
+          onClick={selectHandler}
 
         />
       )
