@@ -8,16 +8,18 @@ function App() {
 
   const [questions, setQuestions] = useState([])
 
-  
+ 
+
   function getTrivia() {
       fetch('https://opentdb.com/api.php?amount=5')
       .then(res => res.json())    
       .then(data => {
-        let results = [...data.results].map(item => ({
-          ...item,
-          options: [item.correct_answer, ...item.incorrect_answers],
+        let results = [...data.results].map(questionItem => ({
+          ...questionItem,
+          options: [questionItem.correct_answer, ...questionItem.incorrect_answers],
           id: nanoid(),
-          selected: ''         
+          selected: '',
+          checked: false,      
         }))
         
         setQuestions(results)
@@ -26,26 +28,25 @@ function App() {
     })
   }
 
-  function selectHandler(value) {
-    setQuestions(prev => prev.map(item => {
-      return item.options.includes(value) ? {...item, selected: value} : item
-    })) 
+  
+  const selectHandler = (id, selection) => {
+      // console.log(makeSelection);
+      setQuestions(prevQuestions => prevQuestions.map(question => {
+        return id === question.id ?
+        {...question, selected: selection} :
+        question
+      }));
   }
 
+
+
   
-    const quiz = questions.map(item => {
+    const quiz = questions.map(question => {
       return (
         <Question 
-          key={item.id}
-          id={item.id}
-          type={item.type}
-          question={item.question}
-          answer={item.correct_answer}
-          incorrect={item.incorrect_answers}
-          options={item.options}
-          selected={item.selected}
-          onClick={selectHandler}
-
+          key={question.id} 
+          questionItem={question} 
+          selectHandler={selectHandler}
         />
       )
    
@@ -69,6 +70,7 @@ function App() {
         {quiz}
         <button
             className="check-btn"
+            // onClick={checkAnswers}
         >Submit Answers</button>
       </div>
 

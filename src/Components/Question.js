@@ -1,68 +1,71 @@
 import React, { useState } from "react";
 
+import Answer from "./Answer";
 
-export default function Question(props) {
+import htmlParser from "../utils/html-parser";
+
+const Question = ({ questionItem, selectHandler }) => {
+    // const [answers, setAnswers] = useState([])
     // const [selected, setSelected] = useState("")
-
-    let temp = []
-
-    props.type === "boolean" ? 
-    temp = [...props.options].sort().reverse() :
-    temp =[...props.options].sort()
-
-    //Move this to the App module //  
-
-    function fixHTML(str) {
-        const entity = {
-            '&#039;': "'",
-            '&quot;': '"',
-            '&amp;': '&',
-            '&atilde;': 'ã',
-            '&ouml;': 'ö'
-        }
-        return str.replace(/&#039;|&quot;|&amp;|&atilde;|&ouml;/g, item => entity[item]);
+    const { id, type, question, options, selected } = questionItem;
+    let sorted = []    
+    if (type === "boolean") {
+        sorted = options.sort().reverse();
+   
+    } else {
+        sorted = options.sort();
     }
     
-   
-    
 
-    let editedQuestion = fixHTML(props.question)
+    let editedQuestion = htmlParser(question);
+
+
     // let editedChoices = temp.map(item => fixHTML(item))
 
-    const noBorder = {border: 'none'}
-    const selectedBorder = {border: '1px solid black'}
+    // const noBorder = {border: 'none'}
+    // const selectedBorder = {border: '1px solid black'}
+    // const correct = {backgoundColor: 'green'}
+    // const wrong = {backgroundColor: 'red'}
 
-    
-   
-
-    const multipleChoice = temp.map(item => {
-        return ( 
-     
-            <button
-                className="quiz-btn"
-                style={props.selected === item ? selectedBorder : noBorder}
-                key={item}
-                value={item}
-                       
-                onClick={() => props.onClick(item)}
-            >
-                {item}
-            </button>
-
-       
-        )
-    }) 
+    // const checkStyle = (item) => {
+    //     const { checked, selected, answer} = props;
+    //     if (!props.checked && props.selected === item) {
+    //         return selectedBorder
+    //     } else if (checked && (selected === answer)) {
+    //         return correct
+    //     } else if (checked && (selected !== answer)) {
+    //         return wrong
+    //     } else {
+    //         return noBorder
+    //     }
+    // }
+ 
+  
+    const multipleChoice = sorted.map((item) => {
+        return (  <Answer 
+                    key={item} 
+                    id={id}
+                    option={item}
+                    selectHandler={selectHandler}
+                    selected={selected}     
+                    /> )   
+    }); 
 
     return (
         <div 
             className="question-container"
-            key={props.id}>
-            <h3 className="question">{editedQuestion}</h3>
+            key={id}
+        >
+            <h3 className="question">
+                {editedQuestion}
+            </h3>
             <div className="answers">
-            {multipleChoice}
+                {multipleChoice}
             </div>
             <div className="divider"></div>
   
         </div>
     )
 }
+
+export default Question;
