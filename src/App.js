@@ -6,7 +6,8 @@ import { nanoid } from "nanoid"
 
 function App() {
 
-  const [questions, setQuestions] = useState([])
+  const [questions, setQuestions] = useState([]);
+  const [numberCorrect, setNumberCorrect] = useState(0);
 
  
 
@@ -19,7 +20,8 @@ function App() {
           options: [questionItem.correct_answer, ...questionItem.incorrect_answers],
           id: nanoid(),
           selected: '',
-          checked: false,      
+          checked: false,
+          correct: false      
         }))
         
         setQuestions(results)
@@ -30,7 +32,6 @@ function App() {
 
   
   const selectHandler = (id, selection) => {
-      // console.log(makeSelection);
       setQuestions(prevQuestions => prevQuestions.map(question => {
         return id === question.id ?
         {...question, selected: selection} :
@@ -38,9 +39,19 @@ function App() {
       }));
   }
 
-
+  const checkAnswers = () => {
+    setQuestions(prev => prev.map((question) => {
+      const { selected, correct_answer, checked, correct } = question;
+      return selected === correct_answer ? 
+      {...question, checked: true, correct: true} :
+      {...question, checked: true}
+    }))
 
   
+  }
+  
+  
+
     const quiz = questions.map(question => {
       return (
         <Question 
@@ -70,7 +81,7 @@ function App() {
         {quiz}
         <button
             className="check-btn"
-            // onClick={checkAnswers}
+            onClick={checkAnswers}
         >Submit Answers</button>
       </div>
 

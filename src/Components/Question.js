@@ -43,11 +43,10 @@ const Question = ({ questionItem, selectHandler }) => {
   
     const multipleChoice = sorted.map((item) => {
         return (  <Answer 
-                    key={item} 
-                    id={id}
+                    key={item}                 
                     option={item}
                     selectHandler={selectHandler}
-                    selected={selected}     
+                    questionItem={questionItem}
                     /> )   
     }); 
 
